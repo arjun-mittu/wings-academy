@@ -47,7 +47,7 @@ CKEDITOR_UPLOAD_PATH="uploads/"
 CKEDITOR_CONFIGS = {
     'default': {
         #'skin': 'moono',
-         'skin': 'office2013',
+        # 'skin': 'office2013',
         'toolbar_Basic': [
             ['Source', '-', 'Bold', 'Italic']
         ],

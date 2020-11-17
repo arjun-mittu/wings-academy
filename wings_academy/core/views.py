@@ -11,8 +11,25 @@ from django.views.decorators.csrf import csrf_exempt
 from  django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 import json
+from .models import Blog
 def home(request):
     return render(request,"home.html")
 
-def all_blogs(request):
-    return HttpResponse("hello")
+#def all_blogs(request):
+#   return render(request,"all_blogs.html")
+class all_blogs(ListView):
+    model=Blog
+    template_name='all_blogs.html'
+    context_object_name='blogs'
+    ordering=['-date_posted']
+    paginate_by=4
+    def get_queryset(self):
+        result= super(all_blogs,self).get_queryset()
+        query=self.request.GET.get('search')
+        if query:
+            postresult = Blog.objects.filter(title__contains=query)
+            result = postresult
+        else:
+            result = Blog.objects.order_by('-date_posted')
+        return result
+    
