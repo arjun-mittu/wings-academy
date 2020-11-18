@@ -7,5 +7,5 @@ from .views import home,all_blogs
 app_name="core"
 urlpatterns = [
     path('',home,name="home"),
-    path('blogs/',all_blogs,name="all_blogs"),
+    path('blogs/',all_blogs.as_view(),name="all_blogs"),
 ]
