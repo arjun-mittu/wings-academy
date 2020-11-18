@@ -11,7 +11,8 @@ from django.views.decorators.csrf import csrf_exempt
 from  django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 import json
-from .models import Blog
+from .models import Blog,comment
+from .forms import cmtform
 def home(request):
     return render(request,"home.html")
 
@@ -36,4 +37,20 @@ class all_blogs(ListView):
 def Blogdetailview(request,pk):
     template_name='single-blog-page.html'
     post=get_object_or_404(Blog,id=pk)
-    return render(request,template_name,{'post':post})
+    comments=comment.objects.filter(blog=post).order_by('-created_on')
+    if request.method=='POST':
+        comment_form=cmtform(request.POST or None)
+        try:
+            if comment_form.is_valid():
+                user=request.user
+                body=comment_form.cleaned_data.get('body')
+                comment_form1=comment.objects.create(
+                    blog=post,
+                    by=user,
+                    body=body
+                )
+        except ObjectDoesNotExist:
+            messages.error(self.request,"fill correctly")
+    else:
+        comment_form=cmtform()
+    return render(request,template_name,{'post':post,'comments':comments,'comment_form':cmtform})
