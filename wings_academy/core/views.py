@@ -22,7 +22,7 @@ class all_blogs(ListView):
     template_name='all_blogs.html'
     context_object_name='blogs'
     ordering=['-date_posted']
-    paginate_by=6
+    paginate_by=4
     def get_queryset(self):
         result= super(all_blogs,self).get_queryset()
         query=self.request.GET.get('search')
@@ -32,4 +32,8 @@ class all_blogs(ListView):
         else:
             result = Blog.objects.order_by('-date_posted')
         return result
-    
+
+def Blogdetailview(request,pk):
+    template_name='single-blog-page.html'
+    post=get_object_or_404(Blog,id=pk)
+    return render(request,template_name,{'post':post})

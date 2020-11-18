@@ -1,28 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
- <nav style="background-color:black;"class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-            <div class="container">
-                <!--<a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="assets/img/navbar-logo.svg" alt="" /></a>-->
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars ml-1"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav text-uppercase ml-auto">
-                        <li class="nav-item" ><a class="nav-link js-scroll-trigger" href="#services">Services</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="">Blogs</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#team">Team</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="">Login</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav><br><form method="GET" action="">
+{% include 'navbar/navbar_black.html' %}
+ <br>
+      <br><br><br><form method="GET" action="">
         <div class="container" style="margin-left:100px;">
-         <h5 class="card-header">Search</h5>
+  
           <div class="card-body">
             <div class="input-group" style="width:30%">  
               <input type="text" name="search" class="form-control" placeholder="Search for..." >
@@ -35,26 +18,11 @@
 <div style="margin-left:40px;">
 <div class="container justify-content-center">
   <div class="row" >
-  {% comment  %}
-  {% for result in blogs %}
-    <div class="col">
-      <div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="{{result.cover_image.url}}" alt="Card image cap">
-  <div class="card-body">
-    <p class="card-text">{{result.title}}</p>
-    Published on:{{result.date_posted}}
-    by {{result.author}}
-  </div>
-  
-</div>
-    </div>{% endfor %}
-    {% endcomment %}
     {% for result in blogs %}
                   <article class="col-12 col-md-6" data-aos="zoom-in"
                     data-aos-delay="100" style="background-color:#ebe7e6;margin-top:25px;margin-bottom:20px;border-right:1px solid #c2bfbe;">
                         <hr>
-                        <a href="{% comment  %}{% url 'blog:post-detail' result.id%}
-                        {% endcomment %}" class="effect-lily">
+                        <a href="{% url 'core:post-detail' result.id%}" class="effect-lily">
                             <div>
                                 <img src="{{result.cover_image.url}}" alt="Image" class="img-fluid" style="width:500px;height:300px">                            
                             </div>
