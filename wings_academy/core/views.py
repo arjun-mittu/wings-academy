@@ -54,3 +54,6 @@ def Blogdetailview(request,pk):
     else:
         comment_form=cmtform()
     return render(request,template_name,{'post':post,'comments':comments,'comment_form':cmtform})
+
+def my_profile(request):
+    return render(request,"profile.html")
