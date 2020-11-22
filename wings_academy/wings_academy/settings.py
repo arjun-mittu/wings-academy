@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     #mycreated
     'core',
+    'courses',
     #packages
     'crispy_forms',
     'ckeditor',

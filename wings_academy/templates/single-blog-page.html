@@ -47,7 +47,7 @@
               <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         {% else %}
-        Login to add Comments
+        <a href="{% url 'account_login' %}">Login</a> to add Comments
             {% endif %}
           </div>
         </div>

@@ -2,8 +2,15 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.conf import settings
+from django.db.models.signals import post_save
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
+
+user_type=(
+    ('paid','paid'),
+    ('free','free')
+)
 class Blog(models.Model):
     title=models.CharField(max_length=255)
     cover_image=models.ImageField()
@@ -25,3 +32,14 @@ class comment(models.Model):
         ordering=['created_on']
     def __str__(self):
         return 'Comment {} by {}'.format(self.body,self.by)
+
+class paid(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
+    type=models.CharField(choices=user_type,default='free',max_length=10)
+    
+def create_stock(sender,instance,created,**kwargs):
+    if created:
+        paid.objects.create(user=instance)
+
+post_save.connect(create_stock,sender=User)
