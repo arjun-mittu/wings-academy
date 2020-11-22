@@ -3,10 +3,11 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 class Blog(models.Model):
     title=models.CharField(max_length=255)
     cover_image=models.ImageField()
-    content=RichTextField(blank=True,null=True)
+    content=RichTextUploadingField(blank=True,null=True)
     date_posted = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
