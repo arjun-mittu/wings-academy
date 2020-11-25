@@ -12,6 +12,7 @@ from  django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 import json
 from .models import course
+from core.models import paid
 class home(ListView):
     model=course
     template_name='all_courses.html'
@@ -27,3 +28,20 @@ class home(ListView):
         else:
             result = course.objects.order_by('-created_on')
         return result
+
+@login_required
+def course_detail_view(request,pk):
+    user_logged=request.user
+    check_paid=paid.objects.filter(user=user_logged)[0]
+    post=get_object_or_404(course,id=pk)
+    if check_paid.type=="paid":
+        return HttpResponse('paid')
+    elif check_paid.type=="free" and post.type=="paid":
+        return render(request,"member_required.html")
+    elif check_paid.type=="free" and post.type=="free":
+        return HttpResponse('free + free')
+    
+
+@login_required
+def membership_required(request,pk):
+    return render(request,'member_required.html')
