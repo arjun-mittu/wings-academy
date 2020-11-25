@@ -54,7 +54,7 @@
           <h5 class="card-header">Course Videos</h5>
           {% for lesson in cl %}
           <div class="card-body"><div class="row">
-          <a href="" style="color:black;"><img src=" {% static 'assets/img/play-sharp.svg' %} " alt="" width="20" height="20"/>{{ lesson.title }}</a></div>
+         <a href="{% url 'courses:video_detail'  post.id  lesson.id %}" style="color:black;"><img src=" {% static 'assets/img/play-sharp.svg' %} " alt="" width="20" height="20"/>{{ forloop.counter }}. {{ lesson.title }}</a></div>
 
           <ion-icon name="play-sharp"></ion-icon>
 
