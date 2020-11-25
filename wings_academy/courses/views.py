@@ -11,7 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from  django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 import json
-from .models import course
+from .models import course,lesson
 from core.models import paid
 class home(ListView):
     model=course
@@ -34,14 +34,15 @@ def course_detail_view(request,pk):
     user_logged=request.user
     check_paid=paid.objects.filter(user=user_logged)[0]
     post=get_object_or_404(course,id=pk)
+    cl=lesson.objects.filter(course=post).order_by('video_number')
     if check_paid.type=="paid":
-        return HttpResponse('paid')
+        context={
+            "post":post,
+            "cl":cl
+        }
+        return render(request,"course_detail.html",context)
     elif check_paid.type=="free" and post.type=="paid":
         return render(request,"member_required.html")
     elif check_paid.type=="free" and post.type=="free":
         return HttpResponse('free + free')
-    
 
-@login_required
-def membership_required(request,pk):
-    return render(request,'member_required.html')

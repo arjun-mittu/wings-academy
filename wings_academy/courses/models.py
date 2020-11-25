@@ -22,10 +22,11 @@ class course(models.Model):
     def __str__(self):
         return self.title
 
-class lessons(models.Model):
+class lesson(models.Model):
     course=models.ForeignKey(course, on_delete=models.CASCADE)
     title=models.CharField(max_length=255,blank=False)
     description=models.TextField(blank=False)
+    video_number=models.IntegerField()
     video=models.FileField(upload_to="courses/",null=False)
     
     
