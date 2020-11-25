@@ -1,3 +1,21 @@
 from django.db import models
+from django.utils import timezone
+from django.contrib.auth.models import User
+from django.urls import reverse
+from django.conf import settings
+from django.db.models.signals import post_save
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
+from django.utils.text import slugify
+is_paid=(("paid","paid"),
+          ("free","free"))
 
-# Create your models here.
+class course(models.Model):
+    title=models.CharField(max_length=255)
+    short_description=models.TextField(blank=False)
+    description=models.TextField(blank=False)
+    type=models.CharField(choices=is_paid,default='free',max_length=10)
+    created_on=models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.title
+    

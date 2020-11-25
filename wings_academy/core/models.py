@@ -34,7 +34,7 @@ class comment(models.Model):
         return 'Comment {} by {}'.format(self.body,self.by)
 
 class paid(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
     type=models.CharField(choices=user_type,default='free',max_length=10)
     
