@@ -54,7 +54,7 @@
         <!-- Excerpt -->
         <p class="dark-grey-text">{{ result.short_description|truncatewords:20 }}</p>
         <!-- Read more button -->
-        <a class="btn btn-info btn-rounded btn-md">Start</a>
+        <a class="btn btn-info btn-rounded btn-md" href="{% url 'courses:course_detail' result.id %}">Start</a>
 
       </div>
       <!-- Grid column -->
