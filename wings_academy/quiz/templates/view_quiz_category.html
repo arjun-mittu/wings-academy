@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Quizzes related to" %} {{ category.category }}{% endblock %}
+
+{% block content %}
+{% include 'navbar/navbar_black.html' %}
+<br><br><br><br>
+<div class="container justify-content-center">
+<h1>{% trans "Quizzes in the" %} <strong>{{ category.category }} </strong>{% trans "category" %}</h1>
+
+  {% with object_list as quizzes %}
+    {% if quizzes %}
+        <ul>
+        {% for quiz in quizzes %}
+            <li>
+			  <a href="{% url 'quiz_question' quiz_name=quiz.url %}">
+				{{ quiz.title }}
+			  </a>
+			</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>{% trans "There are no quizzes" %}</p>
+    {% endif %}
+  {% endwith %}
+</div>
+{% endblock %}

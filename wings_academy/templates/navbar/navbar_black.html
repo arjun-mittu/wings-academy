@@ -8,12 +8,10 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ml-auto">
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'core:home' %}">Home</a></li>
-                       <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">Services</a></li>
-                       
+                       <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'courses:home' %}">Courses</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'quiz_index' %}">Quiz</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'core:all_blogs' %}">Blogs</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#team">Team</a></li>
+                        
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact</a></li>
                         {% if user.is_authenticated %}
                          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'core:profile' %}">Profile</a></li>

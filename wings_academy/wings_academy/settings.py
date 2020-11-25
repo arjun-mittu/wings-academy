@@ -41,6 +41,10 @@ INSTALLED_APPS = [
     #mycreated
     'core',
     'courses',
+    'quiz',
+    'multichoice',
+    'true_false',
+    'essay',
     #packages
     'crispy_forms',
     'ckeditor',

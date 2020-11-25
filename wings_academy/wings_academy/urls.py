@@ -24,6 +24,7 @@ urlpatterns = [
     path('courses/',include('courses.urls',namespace='courses')),
     path('ckeditor/',include('ckeditor_uploader.urls')),
     path('accounts/',include('allauth.urls')),
+    path('quiz/',include('quiz.urls'))
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
