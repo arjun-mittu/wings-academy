@@ -9,6 +9,7 @@ from django.views.generic import DetailView, ListView, TemplateView, FormView
 from .forms import QuestionForm, EssayForm
 from .models import Quiz, Category, Progress, Sitting, Question
 from essay.models import Essay_Question
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class QuizMarkerMixin(object):
@@ -28,7 +29,7 @@ class SittingFilterTitleMixin(object):
         return queryset
 
 
-class QuizListView(ListView):
+class QuizListView(LoginRequiredMixin,ListView):
     model = Quiz
 
     def get_queryset(self):
@@ -36,7 +37,7 @@ class QuizListView(ListView):
         return queryset.filter(draft=False)
 
 
-class QuizDetailView(DetailView):
+class QuizDetailView(LoginRequiredMixin,DetailView):
     model = Quiz
     slug_field = 'url'
 
@@ -50,11 +51,11 @@ class QuizDetailView(DetailView):
         return self.render_to_response(context)
 
 
-class CategoriesListView(ListView):
+class CategoriesListView(LoginRequiredMixin,ListView):
     model = Category
 
 
-class ViewQuizListByCategory(ListView):
+class ViewQuizListByCategory(LoginRequiredMixin,ListView):
     model = Quiz
     template_name = 'view_quiz_category.html'
 
@@ -95,7 +96,7 @@ class QuizUserProgressView(TemplateView):
         return context
 
 
-class QuizMarkingList(QuizMarkerMixin, SittingFilterTitleMixin, ListView):
+class QuizMarkingList(LoginRequiredMixin,QuizMarkerMixin, SittingFilterTitleMixin, ListView):
     model = Sitting
 
     def get_queryset(self):
@@ -109,7 +110,7 @@ class QuizMarkingList(QuizMarkerMixin, SittingFilterTitleMixin, ListView):
         return queryset
 
 
-class QuizMarkingDetail(QuizMarkerMixin, DetailView):
+class QuizMarkingDetail(LoginRequiredMixin,QuizMarkerMixin, DetailView):
     model = Sitting
 
     def post(self, request, *args, **kwargs):
@@ -132,7 +133,7 @@ class QuizMarkingDetail(QuizMarkerMixin, DetailView):
         return context
 
 
-class QuizTake(FormView):
+class QuizTake(LoginRequiredMixin,FormView):
     form_class = QuestionForm
     template_name = 'question.html'
     result_template_name = 'result.html'
