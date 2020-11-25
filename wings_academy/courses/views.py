@@ -11,6 +11,19 @@ from django.views.decorators.csrf import csrf_exempt
 from  django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 import json
-
-def home(request):
-    return HttpResponse('hello')
+from .models import course
+class home(ListView):
+    model=course
+    template_name='all_courses.html'
+    context_object_name='course'
+    ordering=['-created_on']
+    paginate_by=6
+    def get_queryset(self):
+        result= super(home,self).get_queryset()
+        query=self.request.GET.get('search')
+        if query:
+            postresult = course.objects.filter(title__contains=query)
+            result = postresult
+        else:
+            result = course.objects.order_by('-created_on')
+        return result

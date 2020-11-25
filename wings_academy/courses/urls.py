@@ -6,5 +6,5 @@ from django.contrib.auth import views as auth_views
 from .views import home
 app_name="courses"
 urlpatterns = [
-    path('',home,name="home"),
+    path('',home.as_view(),name="home"),
 ]

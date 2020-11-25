@@ -23,7 +23,7 @@ class all_blogs(ListView):
     template_name='all_blogs.html'
     context_object_name='blogs'
     ordering=['-date_posted']
-    paginate_by=4
+    paginate_by=6
     def get_queryset(self):
         result= super(all_blogs,self).get_queryset()
         query=self.request.GET.get('search')
