@@ -9,5 +9,19 @@ HI! {{ request.user.username }}</h1><br>
 You can edit your account informations here<br>
 <a href="{% url 'account_change_password' %}" class="btn btn-primary">Change password</a>
 <a href="{% url 'account_email' %}" class="btn btn-primary" style="margin-left:10px">Change email</a>
+<!--Table-->
+<br>
+<hr>
+<div><b>
+Subscription type: {{ type_ch }}</b>
+</div>
+<hr>
+{% if not val %}
+<h3>Benefits of becoming member</h3>
+<b>Fees:  &#x20B9 360</b>
+<hr>
+<a href=" {% url 'core:pay_home' %} " class="btn btn-primary" style="margin-left:10px">Become a member</a>
+{% endif %}
+<!--Table-->
 </div>
 {% endblock content %}

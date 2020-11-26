@@ -11,7 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from  django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 import json
-from .models import Blog,comment
+from .models import Blog,comment,paid
 from .forms import cmtform
 from . import Checksum
 from core.utils import VerifyPaytmResponse
@@ -55,17 +55,51 @@ def Blogdetailview(request,pk):
         comment_form=cmtform()
     return render(request,template_name,{'post':post,'comments':comments,'comment_form':cmtform})
 
+@login_required
 def my_profile(request):
-    return render(request,"profile.html")
+    loged_user=request.user
+    paid_ch=paid.objects.filter(user=loged_user)[0]
+    type_ch=paid_ch.type
+    if type_ch=="paid":
+        type_val=1
+    elif type_ch=="free":
+        type_val=0
+    context={
+        'type_ch':type_ch,
+        'val':type_val
+    }
+    return render(request,"profile.html",context)
 
 
-
+@login_required
 def pay_home(request):
-    return HttpResponse("<html><a href='http://localhost:8000/payment'>PayNow</html>")
+    #return HttpResponse("<html><a href='http://localhost:8000/payment'>PayNow</html>")
+    order_id = Checksum.__id_generator__()
+    bill_amount = "360"
+    data_dict = {
+        'MID': settings.PAYTM_MERCHANT_ID,
+        'INDUSTRY_TYPE_ID': settings.PAYTM_INDUSTRY_TYPE_ID,
+        'WEBSITE': settings.PAYTM_WEBSITE,
+        'CHANNEL_ID': settings.PAYTM_CHANNEL_ID,
+        'CALLBACK_URL': settings.PAYTM_CALLBACK_URL,
+        #'MOBILE_NO': '7405505665',
+        #'EMAIL': 'dhaval.savalia6@gmail.com',
+        'CUST_ID': '123123',
+        'ORDER_ID':order_id,
+        'TXN_AMOUNT': bill_amount,
+    } # This data should ideally come from database
+    data_dict['CHECKSUMHASH'] = Checksum.generate_checksum(data_dict, settings.PAYTM_MERCHANT_KEY)
+    context = {
+        'payment_url': settings.PAYTM_PAYMENT_GATEWAY_URL,
+        'comany_name': settings.PAYTM_COMPANY_NAME,
+        'data_dict': data_dict
+    }
+    return render(request, 'payments/payment.html', context)
 
+@login_required
 def payment(request):
     order_id = Checksum.__id_generator__()
-    bill_amount = "100"
+    bill_amount = "360"
     data_dict = {
         'MID': settings.PAYTM_MERCHANT_ID,
         'INDUSTRY_TYPE_ID': settings.PAYTM_INDUSTRY_TYPE_ID,
@@ -91,8 +125,16 @@ def payment(request):
 def response(request):
     resp = VerifyPaytmResponse(request)
     if resp['verified']:
-        # save success details to db; details in resp['paytm']
-        return HttpResponse("<center><h1>Transaction Successful</h1><center>", status=200)
+            # save success details to db; details in resp['paytm']
+        return redirect('core:change_status')
     else:
         # check what happened; details in resp['paytm']
         return HttpResponse("<center><h1>Transaction Failed</h1><center>", status=400)
+
+@login_required
+def change_status(request):
+    loged_user=request.user
+    paid_ch=paid.objects.filter(user=loged_user)[0]
+    paid_ch.type="paid"
+    paid_ch.save()
+    return redirect('core:profile')

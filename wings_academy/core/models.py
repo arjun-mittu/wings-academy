@@ -38,8 +38,8 @@ class paid(models.Model):
                              on_delete=models.CASCADE)
     type=models.CharField(choices=user_type,default='free',max_length=10)
     
-def create_stock(sender,instance,created,**kwargs):
+def create_paid(sender,instance,created,**kwargs):
     if created:
         paid.objects.create(user=instance)
 
-post_save.connect(create_stock,sender=User)
+post_save.connect(create_paid,sender=User)
