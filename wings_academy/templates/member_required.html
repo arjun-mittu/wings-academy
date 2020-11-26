@@ -5,6 +5,11 @@
 <br><br><br><br>
 <div class="container">
 <h1>
-You need a membership to view this</h1><br>
+{% if quiz %} 
+You need membership to view the answers 
+{% else %}
+You need a membership to view this course
+{% endif %}
+</h1><br>
 </div>
 {% endblock content %}

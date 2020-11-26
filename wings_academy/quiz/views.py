@@ -10,7 +10,7 @@ from .forms import QuestionForm, EssayForm
 from .models import Quiz, Category, Progress, Sitting, Question
 from essay.models import Essay_Question
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from core.models import paid
 
 class QuizMarkerMixin(object):
     @method_decorator(login_required)
@@ -249,8 +249,12 @@ class QuizTake(LoginRequiredMixin,FormView):
 
         if self.quiz.exam_paper is False:
             self.sitting.delete()
-
-        return render(self.request, self.result_template_name, results)
+        user_logged=self.request.user
+        check_paid=paid.objects.filter(user=user_logged)[0]
+        if check_paid.type=="paid":
+            return render(self.request, self.result_template_name, results)
+        elif check_paid.type=="free":
+            return render(self.request,"member_required.html",{'quiz':True})
 
     def anon_load_sitting(self):
         if self.quiz.single_attempt is True:

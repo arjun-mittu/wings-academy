@@ -2,9 +2,20 @@
 {% load static %}
 {% block content %}
 {% include 'navbar/navbar_black.html' %}
- <br>
-      <br><br><br><form method="GET" action="">
-        <div class="container" style="margin-left:100px;">
+<div class="container mt-5">
+
+
+  <!--Section: Content-->
+  <section class="dark-grey-text text-center" style="margin-top:-70px;">
+
+    <!-- Section heading -->
+    <h2 class="font-weight-bold mb-4 pb-2">Courses</h2>
+    <!-- Section description -->
+    {% comment  %}    <p class="text-center mx-auto w-responsive mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error amet numquam iure provident voluptate esse quasi, veritatis totam voluptas nostrum quisquam eum porro a pariatur veniam.</p>
+
+    {% endcomment %}
+<form method="GET" action="">
+        <div class="container" style="margin-left:-28px;margin-top:-25px;">
   
           <div class="card-body">
             <div class="input-group" style="width:30%">  
@@ -15,34 +26,45 @@
             </div>
           </div>
           </div></form>
-<div style="margin-left:40px;">
-<div class="container justify-content-center">
-  <div class="row" >
-    {% for result in blogs %}
-                  <article class="col-12 col-md-6" data-aos="zoom-in"
-                    data-aos-delay="100" style="background-color:#ebe7e6;margin-top:25px;margin-bottom:20px;border-right:1px solid #c2bfbe;">
-                        <hr>
-                        <a href="{% url 'core:post-detail' result.id%}" class="effect-lily">
-                            <div>
-                                <img src="{{result.cover_image.url}}" alt="Image" class="img-fluid" style="width:500px;height:300px">                            
-                            </div>
-                            <h2 style="color:black">{{result.title}}</h2>
-                        </a>                                            
-                        <div class="d-flex justify-content-between pt-4">
-                            
-                            <span>{{result.date_posted.date }}</span>
-                        </div>
-                        <hr>
-                        <div class="d-flex justify-content-between">
-                            
-                            <span>by {{result.author}}</span>
-                        </div>
-                    </article>
-                    {% empty %}
-                    add something to show no results
-                {% endfor %}
-  </div>
-</div></div>
+  	<!-- Grid row -->
+    <div class="row">
+
+      <!-- Grid column -->
+      {% for result in blogs %}
+    <a href="{% url 'core:post-detail' result.id%}" class="effect-lily">
+      <div class="col-lg-4 col-md-6 mb-4">
+
+        <!-- Featured image -->
+        <div class="view overlay rounded z-depth-2 mb-4">
+          <img class="img-fluid" style="width:100%;height:450px;" src="{{ result.cover_image.url }}" alt="Sample image">
+          <a>
+            <div class="mask rgba-white-slight"></div>
+          </a>
+        </div>
+
+        <!-- Category -->
+        <!-- Post title -->
+        <h4 class="font-weight-bold mb-3"><strong>{{ result.title }}</strong></h4>
+        <!-- Post data -->
+        <p>by <a class="font-weight-bold">{{ result.author }}</a>, {{ result.date_posted|date }}</p>
+        <!-- Excerpt -->
+        
+        <!-- Read more button -->
+       </a>
+
+      </div>
+      <!-- Grid column -->
+{% endfor %}
+    </div>
+    <!-- Grid row -->
+
+  </section>
+  <!--Section: Content-->
+
+
+</div>
+
+
 {% if is_paginated %}
   <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
