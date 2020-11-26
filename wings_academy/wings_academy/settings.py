@@ -221,6 +221,17 @@ USE_L10N = True
 USE_TZ = True
 
 
+#paytm
+PAYTM_COMPANY_NAME = "Company Name"   # For representation purposes 
+PAYTM_INDUSTRY_TYPE_ID = "Retail"     # For staging environment
+PAYTM_CHANNEL_ID = "WEB"
+PAYTM_MERCHANT_KEY = "cgTzyTair9bMWtbu"
+PAYTM_MERCHANT_ID = "svvJqF70299220763570"
+PAYTM_CALLBACK_URL = "http://localhost:8000/response/" # Hardcode
+PAYTM_WEBSITE = "WEBSTAGING"
+PAYTM_PAYMENT_GATEWAY_URL = "https://securegw-stage.paytm.in/order/process"
+PAYTM_TRANSACTION_STATUS_URL = "https://securegw-stage.paytm.in/order/status"
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 LOGIN_REDIRECT_URL = '/'
