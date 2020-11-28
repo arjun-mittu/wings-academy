@@ -1,5 +1,5 @@
 {% load socialaccount %}
-
+{% load static %}
 {% get_providers as socialaccount_providers %}
 
 {% for provider in socialaccount_providers %}
@@ -13,8 +13,8 @@
 </li>
 {% endfor %}
 {% endif %}
-<li>
-  <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}" 
-     href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">{{provider.name}}</a>
-</li>
+
+  <a style="color:#706868;" title="{{provider.name}}" class="socialaccount_provider {{provider.id}}" 
+     href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"> <img src=" {% static 'assets/img/logo-google-color.svg' %} " alt="" width="20" height="18" />  Sign in with {{provider.name}}</a>
+
 {% endfor %}
