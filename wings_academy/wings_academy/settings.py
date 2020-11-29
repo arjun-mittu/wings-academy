@@ -66,8 +66,8 @@ EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER ='arjunmittu2000@gmail.com'
-EMAIL_HOST_PASSWORD = 'arjmittu475'
+EMAIL_HOST_USER ='wingstoaspiration@gmail.com'
+EMAIL_HOST_PASSWORD = 'Jasikap/1745/08'
 
 CKEDITOR_UPLOAD_PATH="uploads/"
 CKEDITOR_CONFIGS = {
