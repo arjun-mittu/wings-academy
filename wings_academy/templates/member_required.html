@@ -7,8 +7,11 @@
 <h1>
 {% if quiz %} 
 You need membership to view the answers 
+<a href="{% url 'core:profile' %}" class="btn btn-primary" style="margin-left:10px">Become member</a>
 {% else %}
 You need a membership to view this course
+<a href="{% url 'core:profile' %}" class="btn btn-primary" style="margin-left:10px">Become member</a>
+
 {% endif %}
 </h1><br>
 </div>

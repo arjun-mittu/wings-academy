@@ -11,7 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from  django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 import json
-from .models import Blog,comment,paid
+from .models import Blog,comment,paid,contact
 from .forms import cmtform
 from . import Checksum
 from core.utils import VerifyPaytmResponse
@@ -75,7 +75,7 @@ def my_profile(request):
 def pay_home(request):
     #return HttpResponse("<html><a href='http://localhost:8000/payment'>PayNow</html>")
     order_id = Checksum.__id_generator__()
-    bill_amount = "360"
+    bill_amount = "42000"
     data_dict = {
         'MID': settings.PAYTM_MERCHANT_ID,
         'INDUSTRY_TYPE_ID': settings.PAYTM_INDUSTRY_TYPE_ID,
@@ -84,7 +84,7 @@ def pay_home(request):
         'CALLBACK_URL': settings.PAYTM_CALLBACK_URL,
         #'MOBILE_NO': '7405505665',
         #'EMAIL': 'dhaval.savalia6@gmail.com',
-        'CUST_ID': '123123',
+        'CUST_ID': str(request.user.id),
         'ORDER_ID':order_id,
         'TXN_AMOUNT': bill_amount,
     } # This data should ideally come from database
@@ -99,7 +99,7 @@ def pay_home(request):
 @login_required
 def payment(request):
     order_id = Checksum.__id_generator__()
-    bill_amount = "360"
+    bill_amount = "42000"
     data_dict = {
         'MID': settings.PAYTM_MERCHANT_ID,
         'INDUSTRY_TYPE_ID': settings.PAYTM_INDUSTRY_TYPE_ID,
@@ -138,3 +138,14 @@ def change_status(request):
     paid_ch.type="paid"
     paid_ch.save()
     return redirect('core:profile')
+
+def contact_save(request):
+    if request.method=='POST':
+        name=request.POST['name']
+        email=request.POST['email']
+        phoneno=request.POST['phoneno']
+        msg=request.POST['msg']
+        contact.objects.create(name=name,email=email,phoneno=phoneno,msg=msg)
+        return redirect('core:home')
+    else:
+        return redirect('core:home')

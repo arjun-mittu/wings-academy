@@ -43,3 +43,10 @@ def create_paid(sender,instance,created,**kwargs):
         paid.objects.create(user=instance)
 
 post_save.connect(create_paid,sender=User)
+
+
+class contact(models.Model):
+    name=models.CharField(max_length=50)
+    email=models.EmailField(max_length=254)
+    phoneno=models.CharField(max_length=10)
+    msg=models.TextField()
