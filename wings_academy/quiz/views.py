@@ -33,8 +33,10 @@ class QuizListView(LoginRequiredMixin,ListView):
     model = Quiz
 
     def get_queryset(self):
+        user_logged=self.request.user
+        check_paid=paid.objects.filter(user=user_logged)[0]
         queryset = super(QuizListView, self).get_queryset()
-        return queryset.filter(draft=False)
+        return queryset.filter(draft=False).filter(category=check_paid.type)
 
 
 class QuizDetailView(LoginRequiredMixin,DetailView):
