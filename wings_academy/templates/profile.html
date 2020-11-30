@@ -6,24 +6,60 @@
 <div class="container">
 <h1>
 HI! {{ request.user.username }}</h1><br>
+<div><b>
+Subscription type: {{ type_ch }}</b> 
+</div>
 You can edit your account informations here<br>
 <a href="{% url 'account_change_password' %}" class="btn btn-primary">Change password</a>
 <a href="{% url 'account_email' %}" class="btn btn-primary" style="margin-left:10px">Change email</a>
 <!--Table-->
 <br>
 <hr>
-<div><b>
-Subscription type: {{ type_ch }}</b>
+<div><h2><b style="background-color:#f2cc33;">
+ WANT TO BECOME A MEMBER? CHOOSE YOUR COURSE HERE</h2></b>
 </div>
 <hr>
 {% if not val %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+    <h4>Foundation Course:</h4>
+     <ul>
+<li>Get access to all the courses </li>
+<li>Sample papers and quizes</li>
+<li>Videos available on all subjects</li>
+</ul>
 <b>Fees:  &#x20B9 42000</b>
-<h3>Benefits of becoming member</h3>
-You get access to all courses and quiz
-
 <hr>
-<a href=" {% url 'core:pay_home' %} " class="btn btn-primary" style="margin-left:10px">Become a member</a>
+<a href=" {% url 'core:pay_home' %} " class="btn btn-primary" style="margin-left:10px">Take Course</a>
+    </div>
+    <div class="col-sm">
+    <h4>Test series for Mains</h4>
+      <ul>
+<li>Quizes and mock test </li>
+<li>Question bank for all subjects</li>
+<br>
+</ul>
+<b>Fees:  &#x20B9 6000</b>
+<hr>
+<a href=" {% url 'core:pay_home' %} " class="btn btn-primary" style="margin-left:10px">Take Course</a>
+    </div>
+    <div class="col-sm">
+      <h4>Test series for Preliminary</h4>
+      <ul>
+
+<li>Quizes and mock test </li>
+<li>Question bank for all subjects</li>
+<br>
+</ul>
+<b>Fees:  &#x20B9 5000</b>
+<hr>
+<a href=" {% url 'core:pay_home' %} " class="btn btn-primary" style="margin-left:10px">Take Course</a>
+    </div>
+  </div>
+</div>
 {% endif %}
 <!--Table-->
 </div>
+<br>
 {% endblock content %}

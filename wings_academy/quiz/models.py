@@ -13,6 +13,13 @@ from django.conf import settings
 
 from model_utils.managers import InheritanceManager
 
+quiz_cat=(
+    ('mains','mains'),
+    ('preliminary','preliminary'),
+    ('foundation','foundation'),
+    ('free','free')
+)
+
 class CategoryManager(models.Manager):
 
     def new_category(self, category):
@@ -25,11 +32,8 @@ class CategoryManager(models.Manager):
 
 class Category(models.Model):
 
-    category = models.CharField(
-        verbose_name=_("Category"),
-        max_length=250, blank=True,
-        unique=True, null=True)
-
+    #category = models.CharField(verbose_name=_("Category"),max_length=250, blank=True,unique=True, null=True)
+    category=models.CharField(choices=quiz_cat,max_length=20,verbose_name=_("Category"),blank=True,unique=True, null=True)
     objects = CategoryManager()
 
     class Meta:
@@ -75,9 +79,8 @@ class Quiz(models.Model):
         help_text=_("a user friendly url"),
         verbose_name=_("user friendly url"))
 
-    category = models.ForeignKey(
-        Category, null=True, blank=True,
-        verbose_name=_("Category"), on_delete=models.CASCADE)
+    #category = models.ForeignKey(Category, null=True, blank=True,verbose_name=_("Category"), on_delete=models.CASCADE)
+    category =models.CharField(choices=quiz_cat,default='foundation',max_length=20)
 
     random_order = models.BooleanField(
         blank=False, default=False,

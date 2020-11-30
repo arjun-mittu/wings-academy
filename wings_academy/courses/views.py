@@ -35,12 +35,16 @@ def course_detail_view(request,pk):
     check_paid=paid.objects.filter(user=user_logged)[0]
     post=get_object_or_404(course,id=pk)
     cl=lesson.objects.filter(course=post).order_by('video_number')
-    if check_paid.type=="paid":
+    if check_paid.type=="foundation":
         context={
             "post":post,
             "cl":cl
         }
         return render(request,"course_detail.html",context)
+    elif check_paid.type=="mains" and post.type=="paid":
+        return render(request,"member_required.html")
+    elif check_paid.type=="preliminary" and post.type=="paid":
+        return render(request,"member_required.html")
     elif check_paid.type=="free" and post.type=="paid":
         return render(request,"member_required.html")
     elif check_paid.type=="free" and post.type=="free":
@@ -49,7 +53,18 @@ def course_detail_view(request,pk):
             "cl":cl
         }
         return render(request,"course_detail.html",context)
-
+    elif check_paid.type=="mains" and post.type=="free":
+        context={
+            "post":post,
+            "cl":cl
+        }
+        return render(request,"course_detail.html",context)
+    elif check_paid.type=="prlimanary" and post.type=="free":
+        context={
+            "post":post,
+            "cl":cl
+        }
+        return render(request,"course_detail.html",context)
 @login_required
 def video_detail_view(request,pk,*args, **kwargs):
     user_logged=request.user
@@ -60,7 +75,7 @@ def video_detail_view(request,pk,*args, **kwargs):
         cl=lesson.objects.filter(course=post).order_by('video_number')
         now_lesson=lesson.objects.filter(course=post)
         nl=now_lesson.filter(id=video_id)[0]
-        if check_paid.type=="paid":
+        if check_paid.type=="foundation":
             context={
                 "post":post,
                 "cl":cl,
@@ -69,7 +84,25 @@ def video_detail_view(request,pk,*args, **kwargs):
             return render(request,"course_video.html",context)
         elif check_paid.type=="free" and post.type=="paid":
             return render(request,"member_required.html")
+        elif check_paid.type=="mains" and post.type=="paid":
+            return render(request,"member_required.html")
+        elif check_paid.type=="preliminary" and post.type=="paid":
+            return render(request,"member_required.html")
         elif check_paid.type=="free" and post.type=="free":
+            context={
+                "post":post,
+                "cl":cl,
+                "nl":nl
+            }
+            return render(request,"course_video.html",context)
+        elif check_paid.type=="mains" and post.type=="free":
+            context={
+                "post":post,
+                "cl":cl,
+                "nl":nl
+            }
+            return render(request,"course_video.html",context)
+        elif check_paid.type=="preliminary" and post.type=="free":
             context={
                 "post":post,
                 "cl":cl,

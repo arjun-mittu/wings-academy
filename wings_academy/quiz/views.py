@@ -251,9 +251,13 @@ class QuizTake(LoginRequiredMixin,FormView):
             self.sitting.delete()
         user_logged=self.request.user
         check_paid=paid.objects.filter(user=user_logged)[0]
-        if check_paid.type=="paid":
+        if check_paid.type=="foundation":
             return render(self.request, self.result_template_name, results)
-        elif check_paid.type=="free":
+        elif check_paid.type=="mains" and self.quiz.category=="mains":
+            return render(self.request, self.result_template_name, results)
+        elif check_paid.type=="preliminary" and self.quiz.category=="preliminary":
+            return render(self.request, self.result_template_name, results)
+        elif check_paid.type=="free" :
             return render(self.request,"member_required.html",{'quiz':True})
 
     def anon_load_sitting(self):

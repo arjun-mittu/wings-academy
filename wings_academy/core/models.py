@@ -8,7 +8,9 @@ from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 
 user_type=(
-    ('paid','paid'),
+    ('foundation','foundation'),
+    ('mains','mains'),
+    ('preliminary','preliminary'),
     ('free','free')
 )
 class Blog(models.Model):
@@ -36,7 +38,7 @@ class comment(models.Model):
 class paid(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
-    type=models.CharField(choices=user_type,default='free',max_length=10)
+    type=models.CharField(choices=user_type,default='free',max_length=20)
     
 def create_paid(sender,instance,created,**kwargs):
     if created:

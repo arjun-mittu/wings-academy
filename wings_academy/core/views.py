@@ -60,9 +60,9 @@ def my_profile(request):
     loged_user=request.user
     paid_ch=paid.objects.filter(user=loged_user)[0]
     type_ch=paid_ch.type
-    if type_ch=="paid":
+    if type_ch=="foundation":
         type_val=1
-    elif type_ch=="free":
+    else:
         type_val=0
     context={
         'type_ch':type_ch,

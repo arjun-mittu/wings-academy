@@ -6,7 +6,9 @@
 {% include 'navbar/navbar_black.html' %}
 <br><br><br><br>
 <div class="container justify-content-center">
-<a href="{% url 'quiz_progress' %}" class="btn btn-primary">Check your progress</a>
+{% comment  %}<a href="{% url 'quiz_progress' %}" class="btn btn-primary">Check your progress</a>
+{% endcomment %}
+<small>Note: person with foundation course can access all quizes with solutions</small>
 <hr>
 <h2>{% trans "List of quizzes" %}</h2>
     {% if quiz_list %}
