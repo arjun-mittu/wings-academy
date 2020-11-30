@@ -64,6 +64,10 @@ def my_profile(request):
     paid_ch=paid.objects.filter(user=loged_user)[0]
     type_ch=paid_ch.type
     if type_ch=="foundation":
+        type_val=3
+    elif type_ch=="mains":
+        type_val=2
+    elif type_ch=="preliminary":
         type_val=1
     else:
         type_val=0
