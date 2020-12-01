@@ -186,7 +186,18 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
+'''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'wdsdb',
+        'USER': 'Econ',
+        'PASSWORD': 'pass1234',
+        'HOST':'localhost',
+        'PORT':'3325',
+    }
+}
+'''
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
