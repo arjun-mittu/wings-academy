@@ -67,7 +67,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER ='wingstoaspiration@gmail.com'
-EMAIL_HOST_PASSWORD = 'Jasikap/1745/08'
+EMAIL_HOST_PASSWORD = 'wingstoaspiration1234@gmail'
 
 CKEDITOR_UPLOAD_PATH="uploads/"
 CKEDITOR_CONFIGS = {
