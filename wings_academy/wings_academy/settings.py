@@ -66,8 +66,8 @@ EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER ='wingstoaspiration@gmail.com'
-EMAIL_HOST_PASSWORD = 'wingstoaspiration1234@gmail'
+EMAIL_HOST_USER ='_____'
+EMAIL_HOST_PASSWORD = '____'
 
 CKEDITOR_UPLOAD_PATH="uploads/"
 CKEDITOR_CONFIGS = {
@@ -190,9 +190,9 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'wdsdb',
-        'USER': 'Econ',
-        'PASSWORD': 'pass1234',
+        'NAME': '_____',
+        'USER': '_____',
+        'PASSWORD': '_____',
         'HOST':'localhost',
         'PORT':'3325',
     }

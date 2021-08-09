@@ -101,8 +101,11 @@ celerybeat-schedule
 # Environments
 .env
 .venv
+.wa
+wa/
 env/
 venv/
+backend_pass/
 ENV/
 env.bak/
 venv.bak/
